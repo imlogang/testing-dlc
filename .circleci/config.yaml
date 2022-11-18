@@ -1,0 +1,18 @@
+version: 2.1
+
+workflows: 
+  testing-dlc:
+    jobs:
+      - dlc-on-machine
+
+jobs:
+  dlc-on-machine:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: true 
+    steps:
+      - checkout
+      - run: df -H --output=size,used,avail
+      - run: docker build . -t testing
+
+  
